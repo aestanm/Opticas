@@ -2,24 +2,59 @@
  * Tipos del módulo de pacientes
  */
 
-export interface CreatePatientFormData {
-  first_name: string;
-  last_name: string;
-  email?: string;
+// Tipos para formularios y validación
+export interface PatientFormData {
+  full_name: string;
   phone?: string;
-  date_of_birth: string;
-  is_minor: boolean;
-  identification_number?: string;
+  document_type_id: string;
+  document_number: string;
+  birth_date?: string;
+  is_minor?: boolean;
+  guardians?: GuardianFormData[];
 }
 
-export interface CreateGuardianFormData {
-  first_name: string;
-  last_name: string;
-  email?: string;
+export interface GuardianFormData {
+  full_name: string;
+  document_type_id: string;
+  document_number: string;
   phone: string;
   relationship: string;
 }
 
+// Tipos para entidades (mapean a la base de datos)
+export interface Patient {
+  id: string;
+  tenant_id: string;
+  full_name: string;
+  document_type_id: string;
+  document_number: string;
+  birth_date?: string;
+  is_minor: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Guardian {
+  id: string;
+  tenant_id: string;
+  patient_id: string;
+  full_name: string;
+  document_type_id: string;
+  document_number: string;
+  phone: string;
+  relationship: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DocumentType {
+  id: string;
+  name: string;
+  code: string;
+  created_at: string;
+}
+
+// Constantes para relaciones de guardianes
 export const RELATIONSHIPS = [
   { value: "padre", label: "Padre" },
   { value: "madre", label: "Madre" },

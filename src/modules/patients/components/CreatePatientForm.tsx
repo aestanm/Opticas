@@ -9,19 +9,15 @@ import { useState } from "react";
 import { useCreatePatient } from "@/hooks/usePatients";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { Card, CardBody, CardFooter, CardHeader } from "@/components/Card";
+import { Card, CardBody, CardFooter } from "@/components/Card";
 import { ErrorMessage, SuccessMessage } from "@/components/LoadingAndStates";
-import { isMinor, formatDate } from "@/lib/validators";
+import { isMinor } from "@/lib/validators";
 
 interface CreatePatientFormProps {
-  tenantId: string;
-  branchId?: string;
   onSuccess?: () => void;
 }
 
 export function CreatePatientForm({
-  tenantId,
-  branchId,
   onSuccess,
 }: CreatePatientFormProps) {
   const [formData, setFormData] = useState({
@@ -105,14 +101,12 @@ export function CreatePatientForm({
 
     createPatient(
       {
-        tenant_id: tenantId,
-        first_name: formData.first_name.trim(),
-        last_name: formData.last_name.trim(),
-        email: formData.email || undefined,
-        phone: formData.phone || undefined,
-        date_of_birth: formData.date_of_birth,
+        full_name: `${formData.first_name.trim()} ${formData.last_name.trim()}`,
+        phone: formData.phone.trim(),
+        document_type_id: Number(formData.identification_number) > 0 ? Number(formData.identification_number) : 1, // Cambiar según la lógica de document type
+        document_number: formData.identification_number || "",
+        birth_date: formData.date_of_birth,
         is_minor: checkIfMinor(),
-        identification_number: formData.identification_number || undefined,
       },
       {
         onSuccess: () => {

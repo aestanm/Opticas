@@ -43,29 +43,43 @@ export type Branch = {
 
 export type Patient = {
   id: string;
-  tenant_id: string;
-  first_name: string;
-  last_name: string;
-  email?: string;
-  phone?: string;
-  date_of_birth: string;
+  profile_id: string | null;
+  document_type_id: number;
+  document_number: string;
+  birth_date?: string;
   is_minor: boolean;
-  identification_number?: string;
   created_at: string;
-  updated_at: string;
+  profile?: {
+    full_name: string;
+    phone?: string;
+  };
+};
+
+export type PatientEntity = {
+  id: string;
+  profile_id: string | null;
+  document_type_id: number;
+  document_number: string;
+  birth_date?: string;
+  is_minor: boolean;
+  created_at: string;
 };
 
 export type Guardian = {
   id: string;
-  tenant_id: string;
-  patient_id: string;
-  first_name: string;
-  last_name: string;
-  email?: string;
+  full_name: string;
+  document_type_id: number;
+  document_number: string;
   phone: string;
-  relationship: string; // "padre", "madre", "tutor", etc.
-  created_at: string;
-  updated_at: string;
+  relationship?: string;
+};
+
+export type PatientGuardian = {
+  id: string;
+  patient_id: string;
+  guardian_id: string;
+  relationship?: string;
+  is_primary: boolean;
 };
 
 export type Appointment = {

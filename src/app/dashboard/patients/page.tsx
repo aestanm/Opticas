@@ -6,9 +6,7 @@
 "use client";
 
 import { useState } from "react";
-import { CreatePatientForm, PatientList } from "@/modules/patients";
-
-const TENANT_ID = "test-tenant"; // Esto debería venir del contexto/sesión
+import { PatientForm, PatientList } from "@/modules/patients";
 
 export default function PatientsPage() {
   const [activeTab, setActiveTab] = useState<"list" | "create">("list");
@@ -47,12 +45,9 @@ export default function PatientsPage() {
       </div>
 
       {/* Content */}
-      {activeTab === "list" && <PatientList tenantId={TENANT_ID} />}
+      {activeTab === "list" && <PatientList />}
       {activeTab === "create" && (
-        <CreatePatientForm
-          tenantId={TENANT_ID}
-          onSuccess={() => setActiveTab("list")}
-        />
+        <PatientForm onSuccess={() => setActiveTab("list")} />
       )}
     </div>
   );

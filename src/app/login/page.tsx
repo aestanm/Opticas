@@ -1,6 +1,6 @@
 /**
  * Página de login
- * Punto de entrada de la aplicación
+ * Punto de entrada del sistema interno de gestión
  */
 
 "use client";

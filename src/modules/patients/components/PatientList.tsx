@@ -14,20 +14,13 @@ import { formatDate } from "@/lib/validators";
 import { Patient } from "@/types";
 
 interface PatientListProps {
-  tenantId: string;
   onSelectPatient?: (patient: Patient) => void;
 }
 
-export function PatientList({
-  tenantId,
-  onSelectPatient,
-}: PatientListProps) {
+export function PatientList({ onSelectPatient }: PatientListProps) {
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: allPatients, isLoading: isLoadingAll } = usePatients(tenantId);
-  const { data: searchResults, isLoading: isSearching } = useSearchPatients(
-    tenantId,
-    searchTerm
-  );
+  const { data: allPatients, isLoading: isLoadingAll } = usePatients();
+  const { data: searchResults, isLoading: isSearching } = useSearchPatients(searchTerm);
 
   const patients = searchTerm ? searchResults : allPatients;
   const isLoading = searchTerm ? isSearching : isLoadingAll;
@@ -37,7 +30,7 @@ export function PatientList({
       <Card title="Pacientes" description="Listado de todos los pacientes registrados">
         <CardHeader>
           <Input
-            placeholder="Buscar pacientes por nombre o email..."
+            placeholder="Buscar pacientes por nombre..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.currentTarget.value)}
           />
@@ -60,10 +53,7 @@ export function PatientList({
                       Nombre
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold">
-                      Email
-                    </th>
-                    <th className="px-4 py-3 text-left text-sm font-semibold">
-                      Teléfono
+                      Documento
                     </th>
                     <th className="px-4 py-3 text-left text-sm font-semibold">
                       F. Nacimiento
@@ -84,17 +74,14 @@ export function PatientList({
                     >
                       <td className="px-4 py-3">
                         <div className="font-medium">
-                          {patient.first_name} {patient.last_name}
+                          {patient.profile?.full_name || "Sin nombre"}
                         </div>
                       </td>
                       <td className="px-4 py-3 text-sm">
-                        {patient.email || "-"}
+                        {patient.document_number}
                       </td>
                       <td className="px-4 py-3 text-sm">
-                        {patient.phone || "-"}
-                      </td>
-                      <td className="px-4 py-3 text-sm">
-                        {formatDate(patient.date_of_birth)}
+                        {patient.birth_date ? formatDate(patient.birth_date) : "-"}
                       </td>
                       <td className="px-4 py-3">
                         {patient.is_minor ? (

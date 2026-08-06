@@ -8,7 +8,6 @@
 import { useState } from "react";
 import { useAppointmentsByDateRange } from "@/hooks/useAppointments";
 import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
 import { Card, CardBody, CardHeader } from "@/components/Card";
 import { LoadingSpinner, EmptyState } from "@/components/LoadingAndStates";
 import { formatDate, formatTime } from "@/lib/validators";

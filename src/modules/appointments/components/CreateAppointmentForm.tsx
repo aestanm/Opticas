@@ -12,7 +12,6 @@ import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
 import { Card, CardBody, CardFooter } from "@/components/Card";
 import { ErrorMessage, SuccessMessage } from "@/components/LoadingAndStates";
-import { formatDate, formatTime } from "@/lib/validators";
 
 interface CreateAppointmentFormProps {
   tenantId: string;
@@ -38,7 +37,7 @@ export function CreateAppointmentForm({
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showSuccess, setShowSuccess] = useState(false);
 
-  const { data: patients = [] } = usePatients(tenantId);
+  const { data: patients = [] } = usePatients();
   const { mutate: createAppointment, isPending } = useCreateAppointment();
 
   const handleInputChange = (
@@ -156,7 +155,7 @@ export function CreateAppointmentForm({
               <option value="">Seleccionar paciente...</option>
               {patients.map((patient) => (
                 <option key={patient.id} value={patient.id}>
-                  {patient.first_name} {patient.last_name}
+                  {patient.profile?.full_name ?? "(Sin nombre)"}
                 </option>
               ))}
             </select>

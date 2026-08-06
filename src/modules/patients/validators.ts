@@ -3,7 +3,6 @@
  */
 
 import { z } from "zod";
-import { isMinor, phoneSchema } from "@/lib/validators";
 
 export const createPatientSchema = z.object({
   first_name: z
@@ -44,7 +43,7 @@ export const createGuardianSchema = z.object({
   email: z.string().email("Email inválido").optional().or(z.literal("")),
   phone: z
     .string()
-    .refine(/^\+?[\d\s\-()]{10,}$/, "Teléfono requerido y válido"),
+    .refine((phone) => /^\+?[\d\s\-()]{10,}$/.test(phone), "Teléfono requerido y válido"),
   relationship: z
     .enum(["padre", "madre", "abuelo", "abuela", "tutor", "otro"])
     .refine((rel) => !!rel, "Parentesco requerido"),

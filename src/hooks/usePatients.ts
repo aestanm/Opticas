@@ -11,10 +11,10 @@ import { Patient, Guardian } from "@/types";
 
 const PATIENTS_QUERY_KEY = ["patients"];
 
-export function usePatients(tenantId: string) {
+export function usePatients() {
   return useQuery({
-    queryKey: [...PATIENTS_QUERY_KEY, tenantId],
-    queryFn: () => PatientService.getAllPatients(tenantId),
+    queryKey: PATIENTS_QUERY_KEY,
+    queryFn: () => PatientService.getAllPatients(),
   });
 }
 
@@ -32,10 +32,8 @@ export function useCreatePatient() {
   return useMutation({
     mutationFn: (patient: Parameters<typeof PatientService.createPatient>[0]) =>
       PatientService.createPatient(patient),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: [...PATIENTS_QUERY_KEY, variables.tenant_id],
-      });
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: PATIENTS_QUERY_KEY });
     },
   });
 }
@@ -66,10 +64,10 @@ export function useDeletePatient() {
   });
 }
 
-export function useSearchPatients(tenantId: string, searchTerm: string) {
+export function useSearchPatients(searchTerm: string) {
   return useQuery({
-    queryKey: [...PATIENTS_QUERY_KEY, "search", tenantId, searchTerm],
-    queryFn: () => PatientService.searchPatients(tenantId, searchTerm),
+    queryKey: [...PATIENTS_QUERY_KEY, "search", searchTerm],
+    queryFn: () => PatientService.searchPatients(searchTerm),
     enabled: !!searchTerm && searchTerm.length > 1,
   });
 }

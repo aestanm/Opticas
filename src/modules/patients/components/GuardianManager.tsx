@@ -8,19 +8,17 @@ import { useState } from "react";
 import { useCreateGuardian, useGuardians } from "@/hooks/usePatients";
 import { Input } from "@/components/Input";
 import { Button } from "@/components/Button";
-import { Card, CardBody, CardFooter } from "@/components/Card";
-import { ErrorMessage, LoadingSpinner } from "@/components/LoadingAndStates";
+import { Card, CardBody } from "@/components/Card";
+import { LoadingSpinner } from "@/components/LoadingAndStates";
 import { RELATIONSHIPS } from "../types";
 import { Guardian } from "@/types";
 
 interface GuardianManagerProps {
-  tenantId: string;
   patientId: string;
   patientIsMinor: boolean;
 }
 
 export function GuardianManager({
-  tenantId,
   patientId,
   patientIsMinor,
 }: GuardianManagerProps) {
@@ -29,9 +27,9 @@ export function GuardianManager({
 
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
+    full_name: "",
+    document_type_id: "",
+    document_number: "",
     phone: "",
     relationship: "",
   });
@@ -61,12 +59,16 @@ export function GuardianManager({
   const validateForm = (): boolean => {
     const newErrors: Record<string, string> = {};
 
-    if (!formData.first_name?.trim()) {
-      newErrors.first_name = "El nombre es requerido";
+    if (!formData.full_name?.trim()) {
+      newErrors.full_name = "El nombre completo es requerido";
     }
 
-    if (!formData.last_name?.trim()) {
-      newErrors.last_name = "El apellido es requerido";
+    if (!formData.document_type_id) {
+      newErrors.document_type_id = "El tipo de documento es requerido";
+    }
+
+    if (!formData.document_number?.trim()) {
+      newErrors.document_number = "El número de documento es requerido";
     }
 
     if (!formData.phone?.trim()) {
@@ -92,20 +94,19 @@ export function GuardianManager({
 
     createGuardian(
       {
-        tenant_id: tenantId,
         patient_id: patientId,
-        first_name: formData.first_name.trim(),
-        last_name: formData.last_name.trim(),
-        email: formData.email || undefined,
+        full_name: formData.full_name.trim(),
+        document_type_id: Number(formData.document_type_id),
+        document_number: formData.document_number.trim(),
         phone: formData.phone.trim(),
         relationship: formData.relationship,
       },
       {
         onSuccess: () => {
           setFormData({
-            first_name: "",
-            last_name: "",
-            email: "",
+            full_name: "",
+            document_type_id: "",
+            document_number: "",
             phone: "",
             relationship: "",
           });
@@ -131,7 +132,7 @@ export function GuardianManager({
                   >
                     <div>
                       <p className="font-medium">
-                        {guardian.first_name} {guardian.last_name}
+                        {guardian.full_name}
                       </p>
                       <p className="text-sm text-muted-foreground">
                         {guardian.relationship} • {guardian.phone}
@@ -151,21 +152,53 @@ export function GuardianManager({
             {showForm ? (
               <form onSubmit={handleSubmit} className="space-y-3 border-t pt-4">
                 <Input
-                  label="Nombre"
-                  name="first_name"
-                  value={formData.first_name}
+                  label="Nombre Completo"
+                  name="full_name"
+                  value={formData.full_name}
                   onChange={handleInputChange}
-                  placeholder="Juan"
-                  error={errors.first_name}
+                  placeholder="Juan Pérez García"
+                  error={errors.full_name}
+                  required
                 />
 
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">
+                    Tipo de Documento
+                    <span className="text-red-500 ml-1">*</span>
+                  </label>
+                  <select
+                    name="document_type_id"
+                    value={formData.document_type_id}
+                    onChange={handleInputChange}
+                    className={`
+                      w-full px-3 py-2 text-base
+                      border border-input rounded-md bg-background
+                      text-foreground
+                      focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2
+                      ${errors.document_type_id ? "border-destructive" : ""}
+                    `}
+                  >
+                    <option value="">Seleccionar...</option>
+                    <option value="cc">Cédula de Ciudadanía</option>
+                    <option value="ti">Tarjeta de Identidad</option>
+                    <option value="ce">Cédula de Extranjería</option>
+                    <option value="pasaporte">Pasaporte</option>
+                  </select>
+                  {errors.document_type_id && (
+                    <p className="mt-1 text-sm text-destructive">
+                      {errors.document_type_id}
+                    </p>
+                  )}
+                </div>
+
                 <Input
-                  label="Apellido"
-                  name="last_name"
-                  value={formData.last_name}
+                  label="Número de Documento"
+                  name="document_number"
+                  value={formData.document_number}
                   onChange={handleInputChange}
-                  placeholder="García"
-                  error={errors.last_name}
+                  placeholder="1234567890"
+                  error={errors.document_number}
+                  required
                 />
 
                 <Input
@@ -176,15 +209,6 @@ export function GuardianManager({
                   placeholder="+57 310 123 4567"
                   error={errors.phone}
                   required
-                />
-
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="juan@example.com"
                 />
 
                 <div>
