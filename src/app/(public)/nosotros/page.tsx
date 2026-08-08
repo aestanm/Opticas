@@ -23,7 +23,7 @@ const VALUES = [
 export default function NosotrosPage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-brand-navy py-16 text-center text-white">
+      <section className="relative overflow-hidden bg-brand-navy py-10 text-center text-white">
         <BrandArcs />
         <div className="container relative">
           <h1 className="text-4xl font-bold">Sobre nosotros</h1>
@@ -33,7 +33,22 @@ export default function NosotrosPage() {
         </div>
       </section>
 
-      <section className="container py-16">
+      <section className="container py-12">
+        <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
+          {TEAM.map((member) => (
+            <div key={member.name} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={member.photo}
+                alt={`${member.name} — ${member.role}`}
+                className="aspect-[4/5] w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="container pb-16">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-2xl font-bold text-brand-navy">Nuestro compromiso</h2>
           <p className="mt-4 text-slate-600">
@@ -54,27 +69,6 @@ export default function NosotrosPage() {
               <p className="mt-2 text-sm text-slate-600">{description}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="bg-slate-50 py-16">
-        <div className="container">
-          <div className="mb-10 text-center">
-            <h2 className="text-3xl font-bold text-brand-navy">Nuestro equipo</h2>
-            <p className="mt-2 text-slate-600">Las personas detrás de tu salud visual.</p>
-          </div>
-          <div className="mx-auto grid max-w-4xl gap-6 sm:grid-cols-3">
-            {TEAM.map((member) => (
-              <div key={member.name} className="overflow-hidden rounded-2xl bg-white shadow-sm">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={member.photo}
-                  alt={`${member.name} — ${member.role}`}
-                  className="aspect-[4/5] w-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </>

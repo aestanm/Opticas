@@ -12,7 +12,7 @@ export function PublicFooter() {
     <footer className="bg-brand-navy text-slate-200">
       <div className="container grid gap-10 py-14 md:grid-cols-3">
         <div>
-          <Logo variant="light" />
+          <Logo variant="light" imgHeight={100} />
           <p className="mt-4 max-w-xs text-sm text-slate-300">
             {BRAND.tagline}. Tecnología avanzada, asesoría personalizada y lentes con
             diseño y precisión en {BRAND.city}.

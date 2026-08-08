@@ -15,10 +15,10 @@ export function PublicHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur">
-      <div className="container flex h-16 items-center justify-between">
-        <Logo />
+      <div className="container grid h-24 grid-cols-2 items-center md:grid-cols-3">
+        <Logo imgHeight={92} className="justify-self-start" />
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="col-span-1 hidden items-center gap-8 justify-self-center md:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
@@ -30,29 +30,31 @@ export function PublicHeader() {
           ))}
         </nav>
 
-        <a
-          href={WHATSAPP_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden rounded-full bg-brand-teal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark md:inline-flex"
-        >
-          Agenda tu cita
-        </a>
+        <div className="flex items-center justify-self-end gap-2">
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden rounded-full bg-brand-teal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark md:inline-flex"
+          >
+            Agenda tu cita
+          </a>
 
-        <button
-          type="button"
-          className="inline-flex items-center justify-center rounded-md p-2 text-slate-600 md:hidden"
-          onClick={() => setMenuOpen((open) => !open)}
-          aria-label="Abrir menú"
-        >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {menuOpen ? (
-              <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
-            ) : (
-              <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-            )}
-          </svg>
-        </button>
+          <button
+            type="button"
+            className="inline-flex items-center justify-center rounded-md p-2 text-slate-600 md:hidden"
+            onClick={() => setMenuOpen((open) => !open)}
+            aria-label="Abrir menú"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              {menuOpen ? (
+                <path d="M6 6l12 12M6 18L18 6" strokeLinecap="round" />
+              ) : (
+                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {menuOpen && (

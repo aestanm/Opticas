@@ -27,16 +27,17 @@ export const BUSINESS_HOURS = [
   { day: "Domingo", hours: "Cerrado" },
 ] as const;
 
+// Orden pensado para grillas de 3 columnas: Andrés (CEO) queda en el centro.
 export const TEAM = [
-  {
-    name: "Andrés",
-    role: "CEO & Optómetra",
-    photo: "/images/team/andres.jpg",
-  },
   {
     name: "Fernanda",
     role: "Gestora Comercial",
     photo: "/images/team/fernanda.jpg",
+  },
+  {
+    name: "Andrés",
+    role: "CEO & Optómetra",
+    photo: "/images/team/andres.jpg",
   },
   {
     name: "Anyela",
@@ -48,6 +49,7 @@ export const TEAM = [
 export const NAV_LINKS = [
   { href: "/", label: "Inicio" },
   { href: "/servicios", label: "Servicios" },
+  { href: "/descubre-tu-rostro", label: "Descubre tu rostro" },
   { href: "/nosotros", label: "Nosotros" },
   { href: "/contacto", label: "Contacto" },
 ] as const;
