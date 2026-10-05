@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { AppointmentButton } from "@/components/public/AppointmentButton";
 import { Eye, Sparkles, Glasses, GraduationCap, Users, MapPin, Clock, CalendarCheck } from "lucide-react";
-import { BRAND, BUSINESS_HOURS, WHATSAPP_URL } from "@/lib/brand";
+import { BRAND, BUSINESS_HOURS, EXAM_PROMOTION } from "@/lib/brand";
 import { BrandArcs } from "@/components/public/BrandArcs";
 import { StatRing } from "@/components/public/StatRing";
 import { ChecklistCard } from "@/components/public/ChecklistCard";
+import { ReviewsSection } from "@/components/public/ReviewsSection";
 
 const VALUE_PROPS = [
   {
@@ -55,9 +57,14 @@ export default function HomePage() {
       <section className="relative overflow-hidden bg-brand-navy">
         <BrandArcs />
         <div className="container relative flex flex-col items-center gap-6 py-20 text-center text-white md:py-28">
-          <span className="rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-brand-teal-light">
-            Óptica Guillén · {BRAND.city}
-          </span>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <span className="rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide text-brand-teal-light">
+              Óptica Guillén · {BRAND.city}
+            </span>
+            <span className="rounded-full bg-white/10 px-4 py-1 text-xs font-semibold text-white">
+              Atención personalizada en {BRAND.city}
+            </span>
+          </div>
           <h1 className="max-w-2xl text-4xl font-bold leading-tight md:text-5xl">
             {BRAND.tagline}
           </h1>
@@ -66,14 +73,7 @@ export default function HomePage() {
             y lentes con diseño y precisión.
           </p>
           <div className="flex flex-col gap-3 sm:flex-row">
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark"
-            >
-              Agenda tu cita
-            </a>
+            <AppointmentButton className="rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark">Agenda tu cita</AppointmentButton>
             <Link
               href="/servicios"
               className="rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
@@ -81,6 +81,15 @@ export default function HomePage() {
               Conoce nuestros servicios
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="bg-brand-teal">
+        <div className="container flex flex-col items-center gap-3 py-5 text-center text-white sm:flex-row sm:justify-center sm:gap-4 sm:text-left">
+          <Sparkles size={22} className="shrink-0" />
+          <p className="text-sm">
+            <span className="font-semibold">{EXAM_PROMOTION.title}:</span> {EXAM_PROMOTION.description}
+          </p>
         </div>
       </section>
 
@@ -125,6 +134,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <ReviewsSection />
 
       <section className="bg-brand-navy py-16">
         <div className="container grid items-center gap-10 md:grid-cols-2">
@@ -171,17 +182,10 @@ export default function HomePage() {
               <MapPin size={18} /> {BRAND.address}
             </span>
             <span className="inline-flex items-center gap-2">
-              <Clock size={18} /> {BUSINESS_HOURS[0].hours} (Lun - Vie)
+              <Clock size={18} /> Lun - Vie: {BUSINESS_HOURS[0].hours} · Sáb: {BUSINESS_HOURS[5].hours}
             </span>
           </div>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-teal-dark transition-colors hover:bg-slate-100"
-          >
-            Agenda tu cita · {BRAND.phoneDisplay}
-          </a>
+          <AppointmentButton className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-teal-dark transition-colors hover:bg-slate-100">Agenda tu cita · {BRAND.phoneDisplay}</AppointmentButton>
         </div>
       </section>
     </>

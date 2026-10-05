@@ -1,25 +1,25 @@
 "use client";
 
+import type { LatestDetection } from "../hooks/useFaceDetectionLoop";
 import type { FaceAnalysisCopy } from "../types";
+import { ScanningOverlay } from "./ScanningOverlay";
 
 interface CapturePreviewProps {
   photoDataUrl: string;
+  detection: LatestDetection;
   copy: FaceAnalysisCopy;
-  isAnalyzing: boolean;
   onRetake: () => void;
 }
 
-export function CapturePreview({ photoDataUrl, copy, isAnalyzing, onRetake }: CapturePreviewProps) {
+export function CapturePreview({ photoDataUrl, detection, copy, onRetake }: CapturePreviewProps) {
   return (
     <div className="flex flex-col items-center gap-4">
-      <div className="relative aspect-[3/4] w-full max-w-sm overflow-hidden rounded-2xl bg-slate-900">
+      {/* El espejado envuelve foto + overlay como una sola unidad: los landmarks vienen del frame
+          sin espejar, así que ambos deben mirar el mismo flip para quedar alineados entre sí. */}
+      <div className="relative mx-auto w-full max-w-sm [transform:scaleX(-1)]">
         {/* eslint-disable-next-line @next/next/no-img-element -- data: URL desde canvas, no un asset optimizable */}
-        <img src={photoDataUrl} alt="" className="h-full w-full object-cover [transform:scaleX(-1)]" />
-        {isAnalyzing && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/50 text-sm font-medium text-white">
-            {copy.analyzingLabel}
-          </div>
-        )}
+        <img src={photoDataUrl} alt="" className="block h-auto w-full rounded-2xl" />
+        <ScanningOverlay landmarks={detection.landmarks} captions={copy.scanningCaptions} />
       </div>
       <button
         type="button"

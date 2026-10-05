@@ -15,6 +15,7 @@ export type {
   ShapeRecommendation,
   FrameTypeExample,
   FaceAnalysisCopy,
+  FaceReportCopy,
   FaceAnalysisAssetPaths,
   FaceAnalysisExperienceProps,
 } from "./types";

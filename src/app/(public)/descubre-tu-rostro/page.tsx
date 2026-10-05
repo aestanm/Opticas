@@ -3,7 +3,6 @@ import { Camera, ScanFace, Sparkles } from "lucide-react";
 import { FaceAnalysisSection } from "./FaceAnalysisSection";
 
 export const metadata: Metadata = {
-  title: "Descubre tu rostro | Óptica Guillén",
   description:
     "Usa tu cámara para descubrir la forma de tu rostro y qué tipo de montura te favorece más.",
 };

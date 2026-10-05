@@ -5,6 +5,7 @@
 
 export const BRAND = {
   name: "Óptica Guillén",
+  legalName: "Óptica Guillén S.A.S.",
   tagline: "La respuesta a tu salud visual",
   city: "Cali",
   phoneDisplay: "+57 316 232 5372",
@@ -13,9 +14,23 @@ export const BRAND = {
   instagramHandle: "@opticaguillen_cali",
   instagramUrl: "https://www.instagram.com/opticaguillen_cali/",
   facebookUrl: "https://www.facebook.com/OpticaGuillenCali/",
+  tiktokHandle: "@opticaguillen.cali",
+  tiktokUrl: "https://www.tiktok.com/@opticaguillen.cali",
 } as const;
 
-export const WHATSAPP_URL = `https://wa.me/${BRAND.whatsappNumber}`;
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+
+// Enlace a la ficha de Google (no requiere API). Reemplazar por la URL directa del perfil cuando se tenga.
+export const GOOGLE_REVIEWS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent("Óptica Guillén Cali")}`;
+
+export const WHATSAPP_MESSAGE = "Hola! Estuve revisando su página web y me gustaría agendar una cita";
+
+export const WHATSAPP_URL = `https://wa.me/${BRAND.whatsappNumber}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+
+export const EXAM_PROMOTION = {
+  title: "Examen visual gratis",
+  description: "Al comprar tus lentes formulados con nosotros, el examen visual completo no tiene costo.",
+} as const;
 
 export const BUSINESS_HOURS = [
   { day: "Lunes", hours: "8:00 a. m. - 5:00 p. m." },
@@ -48,8 +63,8 @@ export const TEAM = [
 
 export const NAV_LINKS = [
   { href: "/", label: "Inicio" },
+  { href: "/nosotros", label: "Nosotros" },
   { href: "/servicios", label: "Servicios" },
   { href: "/descubre-tu-rostro", label: "Descubre tu rostro" },
-  { href: "/nosotros", label: "Nosotros" },
   { href: "/contacto", label: "Contacto" },
 ] as const;

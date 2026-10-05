@@ -1,5 +1,6 @@
 "use client";
 
+import { CountdownOverlay } from "./CountdownOverlay";
 import { OvalOverlay } from "./OvalOverlay";
 import { ModuleErrorState } from "./states/ModuleErrorState";
 import type { CameraStatus, FaceAnalysisCopy, FaceLandmarkerStatus, GuidanceResult } from "../types";
@@ -11,8 +12,9 @@ interface CameraCaptureProps {
   guidance: GuidanceResult;
   isSupported: boolean;
   copy: FaceAnalysisCopy;
+  countdown: number | null;
   onActivate: () => void;
-  onCapture: () => void;
+  onStartCapture: () => void;
 }
 
 const CAMERA_ERROR_STATUSES: CameraStatus[] = ["denied", "no-device", "in-use", "error"];
@@ -24,8 +26,9 @@ export function CameraCapture({
   guidance,
   isSupported,
   copy,
+  countdown,
   onActivate,
-  onCapture,
+  onStartCapture,
 }: CameraCaptureProps) {
   if (!isSupported) {
     return <ModuleErrorState message={copy.errors.unsupported} />;
@@ -55,6 +58,7 @@ export function CameraCapture({
           className="h-full w-full object-cover [transform:scaleX(-1)]"
         />
         {isActive && <OvalOverlay status={landmarkerStatus === "ready" ? guidance.status : "no-face"} />}
+        {isActive && countdown !== null && <CountdownOverlay remaining={countdown} />}
         {isActive && (
           <div className="absolute inset-x-0 bottom-3 flex justify-center px-4">
             <span className="rounded-full bg-black/60 px-3 py-1 text-center text-xs font-medium text-white">
@@ -85,15 +89,18 @@ export function CameraCapture({
       )}
 
       {isActive && (
-        <button
-          type="button"
-          onClick={onCapture}
-          className={`rounded-full px-6 py-2.5 text-sm font-semibold text-white transition ${
-            guidance.status === "good" ? "bg-teal-600 hover:bg-teal-700" : "bg-slate-500 hover:bg-slate-600"
-          }`}
-        >
-          {copy.captureLabel}
-        </button>
+        <div className="flex flex-col items-center gap-1.5">
+          <button
+            type="button"
+            onClick={onStartCapture}
+            className={`rounded-full px-6 py-2.5 text-sm font-semibold text-white transition ${
+              guidance.status === "good" ? "bg-teal-600 hover:bg-teal-700" : "bg-slate-500 hover:bg-slate-600"
+            }`}
+          >
+            {copy.captureLabel}
+          </button>
+          <span className="text-xs text-slate-400">{copy.captureHint}</span>
+        </div>
       )}
     </div>
   );

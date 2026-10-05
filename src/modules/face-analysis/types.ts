@@ -64,18 +64,46 @@ export interface FrameTypeExample {
 export interface ShapeRecommendation {
   shape: FaceShape;
   label: string;
+  /** Cómo se ve este tipo de rostro. */
+  description: string;
+  /** Por qué las monturas recomendadas le favorecen. */
   explanation: string;
   recommendedFrameTypes: FrameTypeExample[];
   avoidNotes?: string;
+  tips: string[];
+}
+
+export type FaceReportMetricKey =
+  | "interpupillary"
+  | "faceWidth"
+  | "faceLength"
+  | "lengthToWidth"
+  | "foreheadToCheek"
+  | "jawToCheek"
+  | "eyeWidth"
+  | "headTilt"
+  | "jawShape";
+
+export interface FaceReportCopy {
+  title: string;
+  dominantShapeTitle: string;
+  allShapesTitle: string;
+  recommendedFrameTitle: string;
+  measurementsTitle: string;
+  measurementsNote: string;
+  tipsTitle: string;
+  metrics: Record<FaceReportMetricKey, string>;
+  jawShapeLabels: { angular: string; intermediate: string; soft: string };
 }
 
 export interface FaceAnalysisCopy {
   activateCameraLabel: string;
   activatingCameraLabel: string;
   captureLabel: string;
+  captureHint: string;
   retakeLabel: string;
   analyzingLabel: string;
-  resultsTitle: string;
+  scanningCaptions: string[];
   resultsDisclaimer: string;
   privacyNotice: string;
   guidanceMessages: Record<GuidanceStatus, string>;
@@ -87,6 +115,7 @@ export interface FaceAnalysisCopy {
     generic: string;
     modelLoad: string;
   };
+  report: FaceReportCopy;
 }
 
 export interface FaceAnalysisExperienceProps {

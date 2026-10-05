@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { Eye, Sparkles, Glasses } from "lucide-react";
 import { TEAM } from "@/lib/brand";
 import { BrandArcs } from "@/components/public/BrandArcs";
+
+export const metadata: Metadata = {
+  title: "Sobre nosotros",
+  description: "Conoce al equipo de Óptica Guillén en Cali: asesoría personalizada, tecnología para diagnósticos precisos y lentes con diseño.",
+};
 
 const VALUES = [
   {

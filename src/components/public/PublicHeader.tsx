@@ -8,7 +8,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { NAV_LINKS, WHATSAPP_URL } from "@/lib/brand";
+import { AppointmentButton } from "./AppointmentButton";
+import { NAV_LINKS } from "@/lib/brand";
 
 export function PublicHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,7 +24,7 @@ export function PublicHeader() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-slate-600 transition-colors hover:text-brand-teal-dark"
+              className="whitespace-nowrap text-sm font-medium text-slate-600 transition-colors hover:text-brand-teal-dark"
             >
               {link.label}
             </Link>
@@ -31,14 +32,7 @@ export function PublicHeader() {
         </nav>
 
         <div className="flex items-center justify-self-end gap-2">
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden rounded-full bg-brand-teal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark md:inline-flex"
-          >
-            Agenda tu cita
-          </a>
+          <AppointmentButton className="hidden rounded-full bg-brand-teal px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark md:inline-flex">Agenda tu cita</AppointmentButton>
 
           <button
             type="button"
@@ -70,14 +64,7 @@ export function PublicHeader() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={WHATSAPP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-2 rounded-full bg-brand-teal px-5 py-2.5 text-center text-sm font-semibold text-white"
-            >
-              Agenda tu cita
-            </a>
+            <AppointmentButton className="mt-2 rounded-full bg-brand-teal px-5 py-2.5 text-center text-sm font-semibold text-white">Agenda tu cita</AppointmentButton>
           </nav>
         </div>
       )}

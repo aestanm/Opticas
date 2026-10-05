@@ -1,5 +1,12 @@
-import { MapPin, Phone, Instagram, Facebook, Clock } from "lucide-react";
+import { AtSign, MapPin, Phone, Instagram, Facebook, Music2, Clock } from "lucide-react";
+import { AppointmentButton } from "@/components/public/AppointmentButton";
+import type { Metadata } from "next";
 import { BRAND, BUSINESS_HOURS, WHATSAPP_URL } from "@/lib/brand";
+
+export const metadata: Metadata = {
+  title: "Contacto y citas en Cali",
+  description: `Agenda tu cita en ${BRAND.address}. Escríbenos por WhatsApp al ${BRAND.phoneDisplay}.`,
+};
 
 export default function ContactoPage() {
   return (
@@ -50,20 +57,21 @@ export default function ContactoPage() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-2 text-xs text-slate-400">Te recomendamos agendar cita previa antes de asistir.</p>
             </div>
           </div>
 
           <div className="flex gap-4">
-            <Instagram className="mt-1 shrink-0 text-brand-teal-dark" size={22} />
+            <AtSign className="mt-1 shrink-0 text-brand-teal-dark" size={22} />
             <div>
-              <h3 className="font-semibold text-brand-navy">Redes sociales</h3>
+              <h3 className="font-semibold text-brand-navy">Síguenos en</h3>
               <a
                 href={BRAND.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1 block text-sm text-slate-600 hover:text-brand-teal-dark"
+                className="mt-1 flex items-center gap-1 text-sm text-slate-600 hover:text-brand-teal-dark"
               >
-                {BRAND.instagramHandle}
+                <Instagram size={14} /> {BRAND.instagramHandle.replace("@", "")}
               </a>
               <a
                 href={BRAND.facebookUrl}
@@ -73,17 +81,18 @@ export default function ContactoPage() {
               >
                 <Facebook size={14} /> Óptica Guillén Cali
               </a>
+              <a
+                href={BRAND.tiktokUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-1 flex items-center gap-1 text-sm text-slate-600 hover:text-brand-teal-dark"
+              >
+                <Music2 size={14} /> TikTok {BRAND.tiktokHandle}
+              </a>
             </div>
           </div>
 
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark"
-          >
-            Agenda tu cita por WhatsApp
-          </a>
+          <AppointmentButton className="inline-flex rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark">Agenda tu cita por WhatsApp</AppointmentButton>
         </div>
 
         <div className="overflow-hidden rounded-2xl border border-slate-100 shadow-sm">

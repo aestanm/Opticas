@@ -1,6 +1,13 @@
-import { Eye, GraduationCap, Glasses, Sun, ShieldCheck, Contact, MoonStar, Sparkles, Droplets } from "lucide-react";
-import { WHATSAPP_URL } from "@/lib/brand";
+import { Eye, GraduationCap, Glasses, Sun, ShieldCheck, Contact, MoonStar, Sparkles, Droplets, Wrench } from "lucide-react";
+import { AppointmentButton } from "@/components/public/AppointmentButton";
+import type { Metadata } from "next";
 import { BrandArcs } from "@/components/public/BrandArcs";
+
+export const metadata: Metadata = {
+  title: "Servicios de salud visual en Cali",
+  description:
+    "Exámenes visuales, salud visual infantil, lentes formulados, lentes de contacto, lentes de protección y gafas de sol en Cali.",
+};
 
 const SERVICES = [
   {
@@ -35,6 +42,11 @@ const SERVICES = [
     icon: Sun,
     title: "Gafas de sol con filtro UV",
     description: "Protege tu mirada del sol con lentes que filtran la radiación UV.",
+  },
+  {
+    icon: Wrench,
+    title: "Mantenimiento de monturas",
+    description: "Servicio técnico de reparación y ajuste para que tus monturas sigan cómodas y en buen estado.",
   },
 ];
 
@@ -113,14 +125,7 @@ export default function ServiciosPage() {
         <BrandArcs />
         <div className="container relative flex flex-col items-center gap-4 py-16 text-center text-white">
           <h2 className="text-2xl font-bold">¿Listo para cuidar tu salud visual?</h2>
-          <a
-            href={WHATSAPP_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark"
-          >
-            Agenda tu cita
-          </a>
+          <AppointmentButton className="rounded-full bg-brand-teal px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-teal-dark">Agenda tu cita</AppointmentButton>
         </div>
       </section>
     </>

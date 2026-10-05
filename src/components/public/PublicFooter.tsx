@@ -50,16 +50,23 @@ export function PublicFooter() {
                 {BRAND.instagramHandle}
               </a>
             </li>
+            <li>
+              <a href={BRAND.tiktokUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white">
+                TikTok {BRAND.tiktokHandle}
+              </a>
+            </li>
           </ul>
           <p className="mt-4 text-sm text-slate-300">
             {BUSINESS_HOURS[0].day} - {BUSINESS_HOURS[4].day}: {BUSINESS_HOURS[0].hours}
+            <br />
+            {BUSINESS_HOURS[5].day}: {BUSINESS_HOURS[5].hours}
           </p>
         </div>
       </div>
 
       <div className="border-t border-white/10 py-5">
         <p className="container text-center text-xs text-slate-400">
-          © {new Date().getFullYear()} {BRAND.name}. Todos los derechos reservados.
+          © {new Date().getFullYear()} {BRAND.legalName}. Todos los derechos reservados.
         </p>
       </div>
     </footer>
